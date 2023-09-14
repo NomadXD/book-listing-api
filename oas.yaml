@@ -4,6 +4,10 @@ info:
   version: 1.0.0
   description: A simple REST API for managing books with hardcoded responses.
 
+servers:
+  - url: /booklisting
+    description: Base URL for the API
+
 paths:
   /books:
     get:
