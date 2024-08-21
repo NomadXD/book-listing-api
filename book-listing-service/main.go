@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -32,6 +33,14 @@ func main() {
 // listBooks handles the GET request to list all books.
 func listBooks(w http.ResponseWriter, r *http.Request) {
 	// Hardcoded list of books
+	log.Printf("Host: %v", r.Host)
+	log.Printf("Port: %v", r.URL.Port())
+	for name, values := range r.Header {
+		for _, value := range values {
+			log.Printf("Header: %s = %s", name, value)
+		}
+	}
+	log.Printf("URL: %v", r.URL)
 	books := []Book{
 		{ID: 1, Title: "Book 1", Author: "Author 1"},
 		{ID: 2, Title: "Book 2", Author: "Author 2"},
@@ -85,4 +94,3 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 	// Hardcoded response for deleting a book
 	w.WriteHeader(http.StatusNoContent)
 }
-
