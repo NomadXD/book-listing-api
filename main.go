@@ -23,7 +23,14 @@ func main() {
 	// Start the HTTP server
 	port := 8080
 	fmt.Printf("Server is listening on port %d...\n", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+
+	server := &http.Server{
+		Addr:    ":8080",
+		Handler: nil,
+	}
+	server.SetKeepAlivesEnabled(false)
+
+	err := server.ListenAndServe()
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -85,4 +92,3 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 	// Hardcoded response for deleting a book
 	w.WriteHeader(http.StatusNoContent)
 }
-
